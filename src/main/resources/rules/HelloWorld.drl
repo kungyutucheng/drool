@@ -1,0 +1,57 @@
+package rules;
+import com.wyc.drools.User;
+import java.util.List;
+
+rule "helloworld"
+    when
+        eval(true)
+    then
+        System.err.println("hello,world!");
+    end
+
+rule "user"
+    when
+        $u:User(name=="张三",age==18)
+    then
+        $u.setName("李四");
+        System.out.println($u.getName());
+    end
+
+rule "customerRule1"
+    when
+        eval(true)
+    then
+        System.err.println("customerRule1");
+    end
+
+rule "customerRule2"
+    when
+        eval(true)
+    then
+        System.err.println("customerRule2");
+    end
+
+
+rule "contains"
+    when
+        $s:String()
+        $u:User(name contains $s)
+    then
+        System.err.println("包含");
+    end
+
+rule "memberOf"
+    when
+        $list:List()
+        $u:User(name memberOf $list)
+    then
+        System.err.println("成员属于");
+    end
+
+rule "matches"
+    when
+        // 必须使用.
+        $u:User(name matches "张.*")
+    then
+        System.err.println($u.getName());
+    end
