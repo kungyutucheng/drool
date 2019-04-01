@@ -55,3 +55,10 @@ rule "matches"
     then
         System.err.println($u.getName());
     end
+
+rule "birthDay"
+    when
+        $u:User(birthDate > "2018-01-02")
+    then
+        System.err.println($u.getName());
+    end

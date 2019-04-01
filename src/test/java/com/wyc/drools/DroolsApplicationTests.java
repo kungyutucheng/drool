@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -67,6 +68,15 @@ public class DroolsApplicationTests {
 		user.setName("张三");
 		kieSession.insert(user);
 		kieSession.fireAllRules(new RuleNameEndsWithAgendaFilter("matches"));
+	}
+
+	@Test
+	public void testBirthDay(){
+		User user = new User();
+		user.setName("张三");
+		user.setBirthDate(new Date());
+		kieSession.insert(user);
+		kieSession.fireAllRules(new RuleNameEndsWithAgendaFilter("birthDay"));
 	}
 
 }
