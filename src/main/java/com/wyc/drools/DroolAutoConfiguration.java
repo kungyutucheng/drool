@@ -70,8 +70,9 @@ public class DroolAutoConfiguration {
     }
 
 
+    @Bean
     public KieServices getKieServices(){
-        System.setProperty("drools.dateFotmat","yyyy-MM-dd");
+        System.setProperty("drools.dateformat","yyyy-MM-dd");
         return KieServices.Factory.get();
     }
 }

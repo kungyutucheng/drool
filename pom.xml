@@ -40,6 +40,11 @@
 			<artifactId>kie-spring</artifactId>
 			<version>7.14.0.Final</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

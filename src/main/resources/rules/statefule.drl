@@ -1,0 +1,53 @@
+package rules;
+import com.wyc.drools.stateful.Sprinkler;
+import com.wyc.drools.stateful.Room;
+import com.wyc.drools.stateful.Alarm;
+import com.wyc.drools.stateful.Fire;
+
+rule "when there is a fire turn on the sprinkler"
+when
+    Fire($room : room)
+    $sprinkler : Sprinkler(room == $room,on == false)
+then
+    modify($sprinkler){
+        setOn(true)
+    };
+    System.out.println("turn on the sprinkler for room:" + $room.getName());
+end
+
+rule "when there is not a fire turn off the sprinkler"
+when
+    $room : Room()
+    $sprinkler : Sprinkler(room == $room,on == true)
+    not Fire(room == $room)
+then
+    modify($sprinkler){
+        setOn(false)
+    };
+    System.out.println("turn off the sprinkler for room:" + $room.getName());
+end
+
+rule "raise alarm"
+when
+    exists Fire()
+then
+    insert(new Alarm());
+    System.out.println("raise the alarm");
+end
+
+rule "cancle alarm"
+when
+    not Fire()
+    $alarm : Alarm()
+then
+    delete($alarm);
+    System.out.println("delete the alarm");
+end
+
+rule "everything is ok"
+when
+    not Alarm()
+    not Sprinkler(on == true)
+then
+    System.out.println("everything is ok");
+end
